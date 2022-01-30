@@ -8,6 +8,7 @@ let cpuScore = document.querySelector('.cpu-score');
 let cpuPick = '';
 
 let gameHistory = document.querySelector('.history');
+let winnerText = document.querySelector('.winner');
 
 // EVENTS
 userChoices.forEach(choice => {
@@ -20,7 +21,6 @@ userChoices.forEach(choice => {
 
 // FUNCTIONS
 function playRound(choice){
-    endGame();
     switch(choice){
         case 'rock':
             playRock();
@@ -31,6 +31,8 @@ function playRound(choice){
         default:
             playScissors();
     }
+    endGame();
+    displayWinner();
 }
 
 function playRock(){
@@ -73,9 +75,19 @@ function playScissors(){
 }
 
 function endGame(){
-    if(userScore.innerHTML == 5 || cpuScore.innerHTML ==5){
+    if(userScore.innerHTML == 5 || cpuScore.innerHTML == 5){
         userChoices.forEach(btn => {
             btn.disabled = true;
         })
     }
 }
+
+function displayWinner(){
+    if(userScore.innerHTML == 5){
+        winnerText.innerHTML = 'You win! Click here to replay';
+    } 
+    if(cpuScore.innerHTML == 5){
+        winnerText.innerHTML = 'You loose. Click here to replay.';
+    } 
+}
+
