@@ -15,14 +15,13 @@ userChoices.forEach(choice => {
     choice.addEventListener('click', () => {
         userPick = choice.value;
         cpuPick = cpuChoices[Math.floor(Math.random() * cpuChoices.length)]
-        playRound();
+        playRound(userPick);
     })
 })
 
 // FUNCTIONS
 
-function playRound(){
-// User Picks Rock
+function playRock(){
     if(userPick == 'rock' && cpuPick == 'scissors'){
         gameHistory.innerHTML += 'User +1  Rock vs Scissors <br>';
         userScore.innerHTML++;
@@ -33,8 +32,9 @@ function playRound(){
     } else {
         gameHistory.innerHTML += 'Tie!  Rock vs Rock <br>';
     }
-    break
-// User Picks Paper
+}
+
+function playPaper(){
     if(userPick == 'paper' && cpuPick == 'rock'){
         gameHistory.innerHTML += 'User +1  Paper vs Rock <br>';
         userScore.innerHTML++;
@@ -45,7 +45,8 @@ function playRound(){
     } else {
         gameHistory.innerHTML += 'Tie!  Paper vs Paper <br>';
     }
-    break
+}
+function playScissors(){
 // User Picks Scissors
     if(userPick == 'scissors' && cpuPick == 'paper'){
         gameHistory.innerHTML += 'User +1  Scissors vs Paper <br>';
@@ -57,5 +58,17 @@ function playRound(){
     } else {
         gameHistory.innerHTML += 'Tie!  Scissors vs Scissors <br>';
     }
-    break
+}
+
+function playRound(choice){
+    switch(choice){
+        case 'rock':
+            playRock();
+            break;
+        case 'paper':
+            playPaper();
+            break;
+        default:
+            playScissors();
+    }
 }
