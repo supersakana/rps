@@ -10,16 +10,28 @@ let cpuPick = '';
 let gameHistory = document.querySelector('.history');
 
 // EVENTS
-
 userChoices.forEach(choice => {
     choice.addEventListener('click', () => {
         userPick = choice.value;
-        cpuPick = cpuChoices[Math.floor(Math.random() * cpuChoices.length)]
+        cpuPick = cpuChoices[Math.floor(Math.random() * cpuChoices.length)];
         playRound(userPick);
     })
 })
 
 // FUNCTIONS
+function playRound(choice){
+    endGame();
+    switch(choice){
+        case 'rock':
+            playRock();
+            break;
+        case 'paper':
+            playPaper();
+            break;
+        default:
+            playScissors();
+    }
+}
 
 function playRock(){
     if(userPick == 'rock' && cpuPick == 'scissors'){
@@ -60,15 +72,10 @@ function playScissors(){
     }
 }
 
-function playRound(choice){
-    switch(choice){
-        case 'rock':
-            playRock();
-            break;
-        case 'paper':
-            playPaper();
-            break;
-        default:
-            playScissors();
+function endGame(){
+    if(userScore.innerHTML == 5 || cpuScore.innerHTML ==5){
+        userChoices.forEach(btn => {
+            btn.disabled = true;
+        })
     }
 }
