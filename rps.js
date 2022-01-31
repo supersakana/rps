@@ -10,6 +10,11 @@ let cpuPick = '';
 let gameHistory = document.querySelector('.history');
 let winnerText = document.querySelector('.winner');
 
+const resetContainer = document.querySelector('.btn-container');
+const resetBtn = document.createElement('button');
+resetBtn.innerText = 'Replay';
+
+
 // EVENTS
 userChoices.forEach(choice => {
     choice.addEventListener('click', () => {
@@ -18,6 +23,8 @@ userChoices.forEach(choice => {
         playRound(userPick);
     })
 })
+
+resetBtn.addEventListener('click', reset);
 
 // FUNCTIONS
 function playRound(choice){
@@ -33,6 +40,37 @@ function playRound(choice){
     }
     endGame();
     displayWinner();
+}
+
+function endGame(){
+    if(userScore.innerHTML == 5 || cpuScore.innerHTML == 5){
+        resetContainer.appendChild(resetBtn);
+        userChoices.forEach(btn => {
+            btn.disabled = true;
+        })
+    } 
+}
+
+function displayWinner(){
+    if(userScore.innerHTML == 5){
+        winnerText.innerHTML = 'You win!';
+    } 
+    if(cpuScore.innerHTML == 5){
+        winnerText.innerHTML = 'You loose.';
+    } 
+}
+
+function reset(){
+    userPick = '';
+    userScore.innerHTML = 0;
+    cpuPick = '';
+    cpuScore.innerHTML = 0;
+    gameHistory.innerHTML = '';
+    winnerText.innerHTML = '';
+    userChoices.forEach(btn => {
+    btn.disabled = false;
+    resetBtn.remove();
+    });
 }
 
 function playRock(){
@@ -72,22 +110,5 @@ function playScissors(){
     } else {
         gameHistory.innerHTML += 'Tie!  Scissors vs Scissors <br>';
     }
-}
-
-function endGame(){
-    if(userScore.innerHTML == 5 || cpuScore.innerHTML == 5){
-        userChoices.forEach(btn => {
-            btn.disabled = true;
-        })
-    }
-}
-
-function displayWinner(){
-    if(userScore.innerHTML == 5){
-        winnerText.innerHTML = 'You win! Click here to replay';
-    } 
-    if(cpuScore.innerHTML == 5){
-        winnerText.innerHTML = 'You loose. Click here to replay.';
-    } 
 }
 
